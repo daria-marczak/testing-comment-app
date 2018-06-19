@@ -1,22 +1,21 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { shallow } from "enzyme";
+// renders an instance of App component and none of its children
 
 import App from "../App";
+import CommentBox from "../CommentBox";
+import CommentList from "../CommentList";
 
 it("shows the CommentBox", () => {
-  const div = document.createElement("div");
-  // It's a fake div that exists solely inside the memory of terminal
-  ReactDOM.render(<App />, div);
-  // Looks inside the div and checks if the CommentBox is in there
-  expect(div.innerHTML).toContain("comment box");
-  // Expectations - it's actually a core of tests
-  // generally mae be a lot of expectations inside an if function
+  const wrapped = shallow(<App />); // wrapped version of App component
 
-  // Not the best way to test as it's trying to check how the
-  // component Comment Box is working and in general
-  // we need to limit this knowledge
+  expect(wrapped.find(CommentBox).length).toEqual(1);
+  // we search for every copy of CommentBox, this gives us an array
+  // and we want it to be exactly 1
+});
 
-  ReactDOM.unmountComponentAtNode(div);
-  // To clean up the components we've created during the test as
-  // it is going to take up some memory
+it("shows the CommentList", () => {
+  const wrapped = shallow(<App />);
+
+  expect(wrapped.find(CommentList).length).toEqual(1);
 });
