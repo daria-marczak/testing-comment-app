@@ -1,5 +1,41 @@
-import React from "react";
+import React, { Component } from "react";
+import { connect } from "react-redux";
 
-export default () => {
-  return <div>I'm a comment box component</div>;
-};
+import * as actions from "actions";
+
+class CommentBox extends Component {
+  state = {
+    comment: ""
+  };
+
+  handleChange = event => {
+    this.setState({ comment: event.target.value });
+  };
+
+  handleSubmit = event => {
+    event.preventDefault();
+
+    this.props.saveComment(this.state.comment);
+
+    this.setState({ comment: "" });
+
+    // TODO - call an action creator
+    // and save a comment
+  };
+
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <h4>Add a comment</h4>
+        <textarea value={this.state.comment} onChange={this.handleChange} />
+        <div>
+          <button>Submit comment</button>
+        </div>
+      </form>
+    );
+  }
+}
+
+// CommentBox does not need the access to all of the state
+// connect expects to see some parent component that has the provider tag
+export default connect(null, actions)(CommentBox);
