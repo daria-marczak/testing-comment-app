@@ -2,15 +2,17 @@ import React from "react";
 import { mount } from "enzyme";
 
 import CommentBox from "components/CommentBox";
+import Root from "Root";
 
 let wrapped;
 
+// Thanks to the Root component, it now has the access to the store
 beforeEach(() => {
-  wrapped = mount(<CommentBox />);
-});
-
-afterEach(() => {
-  wrapped.unmount();
+  wrapped = mount(
+    <Root>
+      <CommentBox />
+    </Root>
+  );
 });
 
 it("has a text area and a button", () => {
@@ -41,4 +43,8 @@ describe("the textarea", () => {
 
     expect(wrapped.find("textarea").prop("value")).toEqual("");
   });
+});
+
+afterEach(() => {
+  wrapped.unmount();
 });
