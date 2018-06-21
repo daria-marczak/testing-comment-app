@@ -4,13 +4,14 @@ import { createStore } from "redux";
 
 import reducers from "reducers";
 
-export default props => {
+export default ({ children, initialState = {} }) => {
   return (
     // Provider is a React component that communicates directly
     // with every connected component
 
     // The empty object is for the store that is not created
-    <Provider store={createStore(reducers, {})}>{props.children}</Provider>
+    // The initialState is for the tests so that it has the initialstate
+    <Provider store={createStore(reducers, initialState)}>{children}</Provider>
   );
 };
 
