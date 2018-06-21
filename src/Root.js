@@ -1,17 +1,22 @@
 import React from "react";
 import { Provider } from "react-redux";
-import { createStore } from "redux";
-
+import { createStore, applyMiddleware } from "redux";
+import reduxPromise from "redux-promise";
 import reducers from "reducers";
 
 export default ({ children, initialState = {} }) => {
+  const store = createStore(
+    reducers,
+    initialState,
+    applyMiddleware(reduxPromise)
+  );
+
   return (
     // Provider is a React component that communicates directly
     // with every connected component
 
     // The empty object is for the store that is not created
-    // The initialState is for the tests so that it has the initialstate
-    <Provider store={createStore(reducers, initialState)}>{children}</Provider>
+    <Provider store={store}>{children}</Provider>
   );
 };
 

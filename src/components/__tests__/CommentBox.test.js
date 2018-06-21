@@ -16,7 +16,7 @@ beforeEach(() => {
 });
 
 it("has a text area and a button", () => {
-  expect(wrapped.find("button").length).toEqual(1);
+  expect(wrapped.find("button").length).toEqual(2);
   expect(wrapped.find("textarea").length).toEqual(1);
   // Find can be used to find raw HTML elements as well
 });
