@@ -12,13 +12,14 @@ export default ({ children, initialState = {} }) => {
   );
 
   return (
-    // Provider is a React component that communicates directly
-    // with every connected component
-
-    // The empty object is for the store that is not created
     <Provider store={store}>{children}</Provider>
   );
 };
+
+// Provider is a React component that communicates directly
+// with every connected component
+
+// The empty object is for the store that is not created
 
 // Props.children is a React construct, allows to take the component
 // we've created and to wrap other components
