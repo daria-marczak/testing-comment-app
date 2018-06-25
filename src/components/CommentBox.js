@@ -8,6 +8,20 @@ class CommentBox extends Component {
     comment: ""
   };
 
+  componentDidMount() {
+    this.shouldNavigateAway();
+  }
+
+  componentDidUpdate() {
+    this.shouldNavigateAway();
+  }
+
+  shouldNavigateAway() {
+    if (!this.props.auth) {
+      this.props.history.push("/");
+    }
+  }
+
   handleChange = event => {
     this.setState({ comment: event.target.value });
   };
@@ -28,12 +42,18 @@ class CommentBox extends Component {
             <button>Submit comment</button>
           </div>
         </form>
-        <button onClick={this.props.fetchComments}>Fetch comments</button>
+        <button className="fetch-comments" onClick={this.props.fetchComments}>
+          Fetch comments
+        </button>
       </div>
     );
   }
 }
 
+function mapStateToProps(state) {
+  return { auth: state.auth };
+}
+
 // CommentBox does not need the access to all of the state
 // connect expects to see some parent component that has the provider tag
-export default connect(null, actions)(CommentBox);
+export default connect(mapStateToProps, actions)(CommentBox);
